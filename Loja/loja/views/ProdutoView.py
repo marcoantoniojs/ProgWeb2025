@@ -1,5 +1,9 @@
 from django.http import HttpResponse
 from loja.models import Produto
+from datetime import timedelta, datetime
+from django.utils import timezone
+
+
 def list_produto_view(request, id=None):
     #Carrega informações vindas do navegador (query string)
     produto = request.GET.get("produto")
@@ -7,6 +11,7 @@ def list_produto_view(request, id=None):
     promocao = request.GET.get("promocao")
     categoria = request.GET.get("categoria")
     fabricante = request.GET.get("fabricante")
+    dias = request.GET.get("dias")
     
     #Mostra no console
     if destaque is not None:
@@ -22,18 +27,24 @@ def list_produto_view(request, id=None):
 
     #Carrega informações vindas do banco de dados
     produtos = Produto.objects.all()
+    # produtos = Produto.objects.filter(id__in=[1,2,3])
+    # produtos = Produto.objects.filter(criado_em__gt=datetime.now())
     if produto is not None:
-        produtos = produtos.filter(Produto=produto)
+        produtos = produtos.filter(Produto__contains=produto )
     if promocao is not None:
         produtos = produtos.filter(promocao=promocao)
     if destaque is not None:
         produtos = produtos.filter(destaque=destaque)
     if categoria is not None:
-        produtos = produtos.filter(categoria=categoria)
+        produtos = produtos.filter(categoria__Categoria=categoria)
     if fabricante is not None:
-        produtos = produtos.filter(fabricante=fabricante)
+        produtos = produtos.filter(fabricante__Fabricante=fabricante)
     if id is not None:
         produtos = produtos.filter(id=id)
+    if dias is not None:
+        now = timezone.now()
+        now = now - timedelta(days = int(dias))
+        produtos = produtos.filter(criado_em__gte=now)
     #Mostra no console
     print(produtos)
 
