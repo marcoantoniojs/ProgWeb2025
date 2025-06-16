@@ -5,6 +5,7 @@ from loja.models import Produto
 from datetime import timedelta, datetime
 from django.utils import timezone
 
+
 def edit_produto_postback(request, id=None):
     if request.method == 'POST':
         # Salva dados editados
