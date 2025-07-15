@@ -170,7 +170,7 @@ def create_produto_view(request, id=None):
             obj_produto.promocao = (promocao is not None)
             obj_produto.fabricante = Fabricante.objects.filter(id=fabricante).first()
             obj_produto.categoria = Categoria.objects.filter(id=categoria).first()
-
+                        
             if msgPromocao is not None: 
                 obj_produto.msgPromocao = msgPromocao
             obj_produto.preco = 0
