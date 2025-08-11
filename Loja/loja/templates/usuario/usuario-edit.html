@@ -4,7 +4,7 @@
 {% block title %}Usuário{% endblock %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,15 +14,25 @@
       <form class="col-md-6 col-lg-4 offset-md-3 offset-lg-4" method="POST" action="">
         <div class="row">
           {% csrf_token %}
+          {% for f in userForm %}
+          {% if not f.is_hidden %}
+          <div class="form-group col-md-6">
+            {{ f.label }}
+            {{ f }}
+          </div>
+          {% else %}
+          {{ f }}
+          {% endif %}
+          {% endfor %}
           {% for f in usuarioForm %}
-            {% if not f.is_hidden %}
-              <div class="form-group col-md-6">
-                {{ f.label }}
-                {{ f }}
-              </div>
-            {% else %}
-              {{ f }}
-            {% endif %}
+          {% if not f.is_hidden %}
+          <div class="form-group col-md-6">
+            {{ f.label }}
+            {{ f }}
+          </div>
+          {% else %}
+          {{ f }}
+          {% endif %}
           {% endfor %}
         </div>
       </form>
