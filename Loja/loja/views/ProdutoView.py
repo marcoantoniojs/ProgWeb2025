@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect # Retire from django.http import HttpResponse
 from loja.models import Produto, Fabricante, Categoria
 from django.http import HttpResponse
 from datetime import timedelta, datetime
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
+@login_required
 
 def edit_produto_postback(request, id=None):
     if request.method == 'POST':
