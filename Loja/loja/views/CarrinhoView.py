@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from loja.models import Produto, Carrinho, CarrinhoItem
+from loja.models import Produto, Carrinho, CarrinhoItem, Usuario
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
